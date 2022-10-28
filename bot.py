@@ -78,7 +78,7 @@ class RappelleMoiBot:
 
     def show(self, update, context):
         username = self._get_username(update)
-        logger.info(self.DATABASE[username])
+        logger.warning(self.DATABASE[username])
         update.message.reply_text(self.DATABASE[username])
 
     def start(self, update, context):
