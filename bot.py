@@ -35,7 +35,6 @@ class RappelleMoiBot:
     def _get_username(self, update):
         return update.message.chat.username
 
-
     @save_db_decorator
     def create(self, update, context):
         username = self._get_username(update)
@@ -77,10 +76,11 @@ class RappelleMoiBot:
         passw = self.DATABASE[username].get_password(folder, source)
         update.message.reply_text(f"password : {passw}")
 
+    @save_db_decorator
     def folder_source_password(self, update, context):
         _, folder, source, password = update.message.text.split(" ")
         username = self._get_username(update)
-        self.DATABASE[username].add_all_info(folder, source, password)
+        self.DATABASE[username].add_full(folder, source, password)
 
     def show(self, update, context):
         username = self._get_username(update)

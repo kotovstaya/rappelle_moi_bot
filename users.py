@@ -53,7 +53,7 @@ class User:
         self.update_current_password(password)
         self.DB[self.current_folder][self.current_source] = password
 
-    def add_all_info(self, folder: str, source: str, password: str):
+    def add_full(self, folder: str, source: str, password: str):
         self.add_folder(folder)
         self.add_source(source)
         self.add_password(password)
