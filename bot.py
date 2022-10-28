@@ -172,3 +172,4 @@ class RappelleMoiBot:
                                    url_path=self.token,
                                    webhook_url=f"{self.heroku_url}{self.token}")
         self.updater.idle()
+
