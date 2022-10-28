@@ -77,6 +77,11 @@ class RappelleMoiBot:
         passw = self.DATABASE[username].get_password(folder, source)
         update.message.reply_text(f"password : {passw}")
 
+    def folder_source_password(self, update, context):
+        _, folder, source, password = update.message.text.split(" ")
+        username = self._get_username(update)
+        self.DATABASE[username].add_all_info(folder, source, password)
+
     def show(self, update, context):
         username = self._get_username(update)
         update.message.reply_text(str(self.DATABASE[username]))
@@ -110,6 +115,7 @@ class RappelleMoiBot:
             .add_handler("password", self.password)
             .add_handler("show", self.show)
             .add_handler("get_pass", self.get_password)
+            .add_handler("add_full", self.folder_source_password)
             .add_message_handler(self.echo)
             .add_error_handler(self.error)
         )
