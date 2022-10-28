@@ -49,36 +49,62 @@ class RappelleMoiBot:
     @save_db_decorator
     def remove(self, update, context):
         username = self._get_username(update)
-        self.DATABASE.pop(username)
-        update.message.reply_text(f"{username} has been removed")
+        if username in self.DATABASE:
+            self.DATABASE.pop(username)
+            update.message.reply_text(f"{username} has been removed")
+        else:
+            update.message.reply_text(f"There is no user with name {username} in database")
 
     @save_db_decorator
     def folder(self, update, context):
-        _, folder_name = update.message.text.split(" ")
+        try:
+            _, folder_name = update.message.text.split(" ")
+        except:
+            update.message.reply_text(
+                f"use proper format for this command: /folder <folder_name>")
+
         username = self._get_username(update)
         self.DATABASE[username].add_folder(folder_name)
 
     @save_db_decorator
     def source(self, update, context):
-        _, source = update.message.text.split(" ")
+        try:
+            _, source = update.message.text.split(" ")
+        except:
+            update.message.reply_text(
+                f"use proper format for this command: /source <source_name>")
         username = self._get_username(update)
         self.DATABASE[username].add_source(source)
 
     @save_db_decorator
     def password(self, update, context):
-        _, password = update.message.text.split(" ")
+        try:
+            _, password = update.message.text.split(" ")
+        except:
+            update.message.reply_text(
+                f"use proper format for this command: /password <password>")
         username = self._get_username(update)
         self.DATABASE[username].add_password(password)
 
-    def get_password(self, update, context):
-        _, folder, source = update.message.text.split(" ")
+    def get_pass(self, update, context):
+        try:
+            _, folder, source = update.message.text.split(" ")
+        except:
+            update.message.reply_text(
+                f"use proper format for this command: "
+                f"/get_pass <folder> <source>")
         username = self._get_username(update)
         passw = self.DATABASE[username].get_password(folder, source)
         update.message.reply_text(f"password : {passw}")
 
     @save_db_decorator
-    def folder_source_password(self, update, context):
-        _, folder, source, password = update.message.text.split(" ")
+    def add_full(self, update, context):
+        try:
+            _, folder, source, password = update.message.text.split(" ")
+        except:
+            update.message.reply_text(
+                f"use proper format for this command: "
+                f"/add_full <folder> <source> <password>")
         username = self._get_username(update)
         self.DATABASE[username].add_full(folder, source, password)
 
@@ -127,8 +153,8 @@ class RappelleMoiBot:
             .add_handler("source", self.source)
             .add_handler("password", self.password)
             .add_handler("show", self.show)
-            .add_handler("get_pass", self.get_password)
-            .add_handler("add_full", self.folder_source_password)
+            .add_handler("get_pass", self.get_pass)
+            .add_handler("add_full", self.add_full)
             .add_message_handler(self.echo)
             .add_error_handler(self.error)
         )
