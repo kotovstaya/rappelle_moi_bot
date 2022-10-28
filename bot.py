@@ -37,17 +37,18 @@ class RappelleMoiBot:
 
 
     @save_db_decorator
-    def create_user(self, update, context):
+    def create(self, update, context):
         username = self._get_username(update)
         if username in self.DATABASE:
             update.message.reply_text(f"{username} is already in DATABASE")
         else:
             self.DATABASE[username] = User(username)
             logger.info(self.DATABASE[username].username)
-            update.message.reply_text(self.DATABASE[username].username)
+            update.message.reply_text(
+                f"{self.DATABASE[username].username} has been added")
 
     @save_db_decorator
-    def remove_user(self, update, context):
+    def remove(self, update, context):
         username = self._get_username(update)
         self.DATABASE.pop(username)
         update.message.reply_text(f"{username} has been removed")
@@ -78,8 +79,7 @@ class RappelleMoiBot:
 
     def show(self, update, context):
         username = self._get_username(update)
-        print(self.DATABASE[username])
-        update.message.reply_text(self.DATABASE[username])
+        update.message.reply_text(str(self.DATABASE[username]))
 
     def start(self, update, context):
         update.message.reply_text('Hi!')
@@ -103,8 +103,8 @@ class RappelleMoiBot:
         (
             self.add_handler("hehe", self.start)
             .add_handler("help", self.help)
-            .add_handler("create", self.create_user)
-            .add_handler("remove_user", self.remove_user)
+            .add_handler("create", self.create)
+            .add_handler("remove", self.remove)
             .add_handler("folder", self.folder)
             .add_handler("source", self.source)
             .add_handler("password", self.password)
@@ -121,9 +121,9 @@ class RappelleMoiBot:
         return self.updater.dispatcher
 
     def start_bot(self):
-        # self.updater.start_polling()
-        self.updater.start_webhook(listen="0.0.0.0",
-                                   port=self.port,
-                                   url_path=self.token,
-                                   webhook_url=f"{self.heroku_url}{self.token}")
+        self.updater.start_polling()
+        # self.updater.start_webhook(listen="0.0.0.0",
+        #                            port=self.port,
+        #                            url_path=self.token,
+        #                            webhook_url=f"{self.heroku_url}{self.token}")
         self.updater.idle()

@@ -1,3 +1,5 @@
+import json
+
 class User:
     def __init__(self, username):
         self.username = username
@@ -7,7 +9,7 @@ class User:
         self.current_password = None
 
     def __str__(self):
-        return self.__str__()
+        return self.__repr__()
 
     def __repr__(self):
         repr = []
@@ -19,6 +21,11 @@ class User:
             repr.append(s)
 
         return "\n"+"\n".join(repr)
+
+    # def to_json(self):
+    #     return json.dumps(
+    #         self.__str__(), default=lambda o: o.__dict__,
+    #         sort_keys=True, indent=4)
 
     def list_folders(self):
         return list(self.DB.keys())
