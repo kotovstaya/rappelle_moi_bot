@@ -1,5 +1,3 @@
-import json
-
 class User:
     def __init__(self, username):
         self.username = username
@@ -14,18 +12,13 @@ class User:
     def __repr__(self):
         repr = []
         for k, v in self.DB.items():
-            s = f"folder: {k}:"
+            s = f"{k}:"
             if type(v) == dict:
                 for kk, vv in v.items():
-                    s += f"\n\t {kk} -> {vv}"
+                    s += f"\n\t {kk}: {vv}"
             repr.append(s)
 
         return "\n"+"\n".join(repr)
-
-    # def to_json(self):
-    #     return json.dumps(
-    #         self.__str__(), default=lambda o: o.__dict__,
-    #         sort_keys=True, indent=4)
 
     def list_folders(self):
         return list(self.DB.keys())
@@ -46,7 +39,7 @@ class User:
 
     def add_source(self, source: str):
         self.update_current_source(source)
-        if source not in self.DB["self.current_folder"]:
+        if source not in self.DB[self.current_folder]:
             self.DB[self.current_folder][source] = None
 
     def add_password(self, password: str):
