@@ -77,7 +77,8 @@ class RappelleMoiBot:
         update.message.reply_text(f"password : {passw}")
 
     def show(self, update, context):
-        logger.info(self.DATABASE)
+        username = self._get_username(update)
+        update.message.reply_text(self.DATABASE[username])
 
     def start(self, update, context):
         update.message.reply_text('Hi!')
