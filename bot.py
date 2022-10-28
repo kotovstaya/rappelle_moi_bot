@@ -121,9 +121,9 @@ class RappelleMoiBot:
         return self.updater.dispatcher
 
     def start_bot(self):
-        self.updater.start_polling()
-        # self.updater.start_webhook(listen="0.0.0.0",
-        #                            port=self.port,
-        #                            url_path=self.token,
-        #                            webhook_url=f"{self.heroku_url}{self.token}")
+        # self.updater.start_polling()
+        self.updater.start_webhook(listen="0.0.0.0",
+                                   port=self.port,
+                                   url_path=self.token,
+                                   webhook_url=f"{self.heroku_url}{self.token}")
         self.updater.idle()
