@@ -91,17 +91,17 @@ class RappelleMoiBot:
 
     def help(self, update, context):
         help_string = """
-            @rappelle_moi_bot
-            1. /start - start the bot 
-            2. /help - info
-            3. /create - this command create your profile in some sort of database
-            4. /add_full <folder> <source> <password>
-            5. /get_password <folder> <source> - get password for email or whatever. 
-            6. /show - show all folders and sources for specific user.
-            7 /folder - create just a folder and that's all
-            8 /source - create just a source in specific folder
-            9. /password - create just a password in specific folder for specific source
-            10. /remove - remove user from the database 
+        @rappelle_moi_bot
+        /start - start the bot 
+        /help - info
+        /create - this command create your profile in some sort of database
+        /add_full <folder> <source> <password>
+        /get_password <folder> <source> - get password for email or whatever. 
+        /show - show all folders and sources for specific user.
+        /folder - create just a folder and that's all
+        /source - create just a source in specific folder
+        /password - create just a password in specific folder for specific source
+        /remove - remove user from the database 
         """
         update.message.reply_text(help_string)
 
