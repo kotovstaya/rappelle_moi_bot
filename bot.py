@@ -90,7 +90,20 @@ class RappelleMoiBot:
         update.message.reply_text('Hi!')
 
     def help(self, update, context):
-        update.message.reply_text('Help!')
+        help_string = """
+            @rappelle_moi_bot
+            1. /start - start the bot 
+            2. /help - info
+            3. /create - this command create your profile in some sort of database
+            4. /add_full <folder> <source> <password>
+            5. /get_password <folder> <source> - get password for email or whatever. 
+            6. /show - show all folders and sources for specific user.
+            7 /folder - create just a folder and that's all
+            8 /source - create just a source in specific folder
+            9. /password - create just a password in specific folder for specific source
+            10. /remove - remove user from the database 
+        """
+        update.message.reply_text(help_string)
 
     def add_handler(self, name, func):
         self.dp.add_handler(CommandHandler(name, func))
